@@ -1,6 +1,6 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const config = require('./config');
+// const config = require('./config');
 
 const commands = [{
     name: 'ping',
