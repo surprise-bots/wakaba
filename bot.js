@@ -1,6 +1,6 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-var config = require('./config');
+const config = require('config');
 
 const commands = [{
     name: 'ping',
@@ -41,4 +41,4 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-client.login(config.bot_token);
+client.login(process.env.BOT_TOKEN);
