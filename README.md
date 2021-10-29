@@ -21,7 +21,7 @@ WORKDIR /data
 
 RUN apt -y update && apt -y upgrade && apt -y install git
 RUN git clone https://github.com/surprise-bots/wakaba.git /data
-RUN npm install discord.js @discordjs/rest discord-api-types
+RUN npm install discord.js @discordjs/rest @discordjs/builders discord-api-types
 
 ENTRYPOINT [ "bash", "start.sh" ]
 ```
