@@ -1,13 +1,19 @@
+// Required Libraries
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { REST }   = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const { createConnection } = require('mysql');
+
+// Required Variables
 const token      = process.env.BOT_TOKEN;
 const clientId   = process.env.CLIENT_ID;
 const guildId    = process.env.GUILD_ID;
 
+// Build a Bot!
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+// Create a collection of commands, then pull commands from ./commands folder
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -16,10 +22,12 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
+// Log when bot is finally online
 client.once('ready', () => {
     console.log('Ready!');
 });
 
+// I'm not too sure what's going on below. Will need to re-assess when I learn more node.
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 
@@ -35,4 +43,5 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+// Finally, start the bot and login with the token.
 client.login(token);
