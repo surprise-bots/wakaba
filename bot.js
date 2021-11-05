@@ -9,9 +9,24 @@ const { createConnection } = require('mysql');
 const token      = process.env.BOT_TOKEN;
 const clientId   = process.env.CLIENT_ID;
 const guildId    = process.env.GUILD_ID;
+const mycnf = [
+    host = process.env.MYSQL_HOST,
+    user = process.env.MYSQL_USER,
+    pass = process.env.MYSQL_PASS
+];
 
 // Build a Bot!
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+// Create the MySQL connection
+let con = createConnection(mycnf);
+con.connect(err => {
+    // Console log if there is an error
+    if (err) return console.log(err);
+    console.log('MySQL has been connected');
+});
+
+
 
 // Create a collection of commands, then pull commands from ./commands folder
 client.commands = new Collection();
@@ -24,7 +39,7 @@ for (const file of commandFiles) {
 
 // Log when bot is finally online
 client.once('ready', () => {
-    console.log('Ready!');
+    console.log('${client.user.tag} ready!');
 });
 
 // I'm not too sure what's going on below. Will need to re-assess when I learn more node.
