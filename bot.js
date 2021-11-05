@@ -9,12 +9,12 @@ const { createConnection } = require('mysql');
 const token      = process.env.BOT_TOKEN;
 const clientId   = process.env.CLIENT_ID;
 const guildId    = process.env.GUILD_ID;
-const mycnf = [
-    host = process.env.MYSQL_HOST,
-    user = process.env.MYSQL_USER,
-    password = process.env.MYSQL_PASS,
-    database = process.env.MYSQL_DB
-];
+const mycnf = {
+    "host" : process.env.MYSQL_HOST,
+    "user" : process.env.MYSQL_USER,
+    "password" : process.env.MYSQL_PASS,
+    "database" : process.env.MYSQL_DB
+};
 
 // Build a Bot!
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
