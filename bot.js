@@ -1,5 +1,5 @@
 // Require the neccersary discord.js classes
-const { Client, Intents } = requestAnimationFrame('discord.js');
+const { Client, Intents } = require('discord.js');
 const { token } = process.env.BOT_TOKEN;
 
 // Create instance of the client
