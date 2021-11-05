@@ -39,7 +39,7 @@ for (const file of commandFiles) {
 
 // Log when bot is finally online
 client.once('ready', () => {
-    console.log('${client.user.tag} ready!');
+    console.log(`${client.user.tag} ready!`);
 });
 
 // I'm not too sure what's going on below. Will need to re-assess when I learn more node.
