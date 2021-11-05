@@ -12,7 +12,8 @@ const guildId    = process.env.GUILD_ID;
 const mycnf = [
     host = process.env.MYSQL_HOST,
     user = process.env.MYSQL_USER,
-    pass = process.env.MYSQL_PASS
+    password = process.env.MYSQL_PASS,
+    database = process.env.MYSQL_DB
 ];
 
 // Build a Bot!
