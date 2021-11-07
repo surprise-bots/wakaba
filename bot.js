@@ -23,13 +23,13 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // Build Commands class 
 client.commands = new Collection();
-const reg_cmd = [];
+const guild_commands = [];
 
 // Pulls commands from files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    reg_cmd.push(command.data.toJSON());
+    guild_commands.push(command.data.toJSON());
     client.commands.set(command.data.name, command);
 }
 
@@ -39,7 +39,7 @@ const rest = new REST({ version: '9' }).setToken(token);
     try {
         await rest.put(
             Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands },
+            { body: guild_commands },
         );
     } catch (error) {
         console.error(error);
