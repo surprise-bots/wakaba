@@ -19,16 +19,6 @@ const mycnf = {
 // Build a Bot!
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-// Create the MySQL connection
-let con = createConnection(mycnf);
-con.connect(err => {
-    // Console log if there is an error
-    if (err) return console.log(err);
-    console.log('MySQL has been connected');
-});
-
-
-
 // Create a collection of commands, then pull commands from ./commands folder
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
