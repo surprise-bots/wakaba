@@ -40,7 +40,7 @@ client.on('interactionCreate', async interaction => {
 
     const { commandName } = interaction;
 
-    if (commandName === 'ping') {
+    if (commandName === 'penis') {
         await interaction.reply('penis');
     }
 
