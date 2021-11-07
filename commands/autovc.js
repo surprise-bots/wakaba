@@ -6,8 +6,8 @@ module.exports = {
         .setDescription('Handles VC behavior')
         .addStringOption( option =>
             option.setName('category')
-                .addOption('new', 'new')
-                .addOption('hide', 'hide')
+                .addChoice('new', 'new')
+                .addChoice('hide', 'hide')
         ),
     async execute(interaction) {
         if (interaction.command === 'new') {
