@@ -4,9 +4,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('vc')
         .setDescription('Handles VC behavior')
-        .addOption('new', 'new')
-        .addOption('hide', 'hide')
-        ,
+        ,addStringOption( option =>
+            option.setName('category')
+                .addOption('new', 'new')
+                .addOption('hide', 'hide')
+        ),
     async execute(interaction) {
         if (interaction.command === 'new') {
             await interaction.reply('new');
