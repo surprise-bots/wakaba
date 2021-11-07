@@ -4,7 +4,6 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('mod')
 		.setDescription('Moderation options')
-		.addUserOption(option => option.setName('target').setDescription('The member to kick'))
         .addSubcommand(subcommand => 
             subcommand
                 .setName('kick')
