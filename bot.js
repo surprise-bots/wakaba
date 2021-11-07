@@ -17,8 +17,8 @@ const mycnf = {
 };
 
 // Register commands
-const commands = [];
-const commandFiles = fs.readdirSync
+//const commands = [];
+//const commandFiles = fs.readdirSync
 
 // Build a Bot!
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
