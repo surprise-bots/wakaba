@@ -18,47 +18,34 @@ const mycnf = {
     "database" : process.env.MYSQL_DB
 };
 
-// Register commands
-//const commands = [];
-//const commandFiles = fs.readdirSync
-
 // Build a Bot!
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-// Build Ping Interaction
-const commands =  [
-    new SlashCommandBuilder().setName('penis').setDescription('Replied with penis'),
-    new SlashCommandBuilder().setName('button').setDescription('Asks if you suck penis'),
-]
-    .map(command => command.toJSON());
+// Build Commands class 
+client.commands = new Collection();
 
-const rest = new REST({ version: '9' }).setToken(token);
-rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
-    .then(() => console.log('Registered command'))
-    .catch(console.error);
+// Pulls commands from files
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    commands.push(command.data.toJSON());
+    client.commands.set(command.data.name, command);
+}
 
+// Dynamically loads commands, apparently:
+// https://discordjs.guide/creating-your-bot/command-handling.html#dynamically-executing-commands
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 
-    const { commandName } = interaction;
+    const command = client.commands.get(interaction.commandName);
+    if (!command) return;
 
-    if (commandName === 'penis') {
-        await interaction.reply('penis');
+    try {
+        await command.execute(interaction);
+    } catch (error) {
+        console.error(error);
+        await interaction.reply({ content: "Couldnt run the command soz" })
     }
-
-    if (commandName === 'button') {
-        const row = new MessageActionRow()
-        .addComponents(
-            new MessageButton()
-                .setCustomId('dicksuck')
-                .setLabel('Do you suck penis?')
-                .setStyle('PRIMARY'),
-        );
-
-        await interaction.reply({ content: 'Nice!', components: [row] });
-    }
-
-    console.log(interaction);
 });
 
 // When Client connects, log it.
