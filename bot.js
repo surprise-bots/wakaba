@@ -33,6 +33,19 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
+// This refreshes guild commands which are separate to global commands
+const rest = new REST({ version: '9' }).setToken(token);
+(async () => {
+    try {
+        await rest.put(
+            Routes.applicationGuildCommands(clientId, guildId),
+            { body: commands },
+        );
+    } catch (error) {
+        console.error(error);
+    }
+})
+
 // Dynamically loads commands, apparently:
 // https://discordjs.guide/creating-your-bot/command-handling.html#dynamically-executing-commands
 client.on('interactionCreate', async interaction => {
