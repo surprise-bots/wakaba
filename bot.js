@@ -23,12 +23,13 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // Build Commands class 
 client.commands = new Collection();
+const reg_cmd = [];
 
 // Pulls commands from files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    client.commands.push(command.data.toJSON());
+    reg_cmd.push(command.data.toJSON());
     client.commands.set(command.data.name, command);
 }
 
