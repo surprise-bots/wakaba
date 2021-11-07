@@ -5,6 +5,6 @@ module.exports = {
         .setName('vc')
         .setDescription('Handles VC behavior'),
     async execute(interaction) {
-        await interaction.reply('Um...')
+        await interaction.reply('Um... I was dynamically loaded')
     }
 };
