@@ -1,6 +1,7 @@
 // Required Libraries
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST }   = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { createConnection } = require('mysql');
