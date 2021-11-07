@@ -4,7 +4,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('vc')
         .setDescription('Handles VC behavior')
-        ,addStringOption( option =>
+        .addStringOption( option =>
             option.setName('category')
                 .addOption('new', 'new')
                 .addOption('hide', 'hide')
