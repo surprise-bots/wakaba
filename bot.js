@@ -1,6 +1,7 @@
 // Required Libraries
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
+const { MessageActionRow, MessageButton } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST }   = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
@@ -27,6 +28,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 // Build Ping Interaction
 const commands =  [
     new SlashCommandBuilder().setName('penis').setDescription('Replied with penis'),
+    new SlashCommandBuilder().setName('button').setDescription('Asks if you suck penis'),
 ]
     .map(command => command.toJSON());
 
@@ -42,6 +44,18 @@ client.on('interactionCreate', async interaction => {
 
     if (commandName === 'penis') {
         await interaction.reply('penis');
+    }
+
+    if (commandName === 'button') {
+        const row = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setCustomId('dicksuck')
+                .setLabel('Do you suck penis?')
+                .setStyle('PRIMARY'),
+        );
+
+        await interaction.reply({ content: 'Nice!', components: [row] });
     }
 
     console.log(interaction);
