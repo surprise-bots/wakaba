@@ -16,37 +16,39 @@ const mycnf = {
     "database" : process.env.MYSQL_DB
 };
 
+// Register commands
+const commands = [];
+const commandFiles = fs.readdirSync
+
 // Build a Bot!
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-// Create a collection of commands, then pull commands from ./commands folder
-client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+// Build Ping Interaction
+const commands =  [
+    new SlashCommandBuilder().setName('penis').setDescription('Replied with penis'),
+]
+    .map(command => command.toJSON());
 
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.data.name, command);
-}
+const rest = new REST({ version: '9' }).setToken(token);
+rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+    .then(() => console.log('Registered command'))
+    .catch(console.error);
 
-// Log when bot is finally online
-client.once('ready', () => {
-    console.log(`${client.user.tag} ready!`);
-});
-
-// I'm not too sure what's going on below. Will need to re-assess when I learn more node.
-client.on('interactionCreate', async interaction => {
+client.on('interactionCreate', interaction => {
     if (!interaction.isCommand()) return;
 
-    const command = client.commands.get(interaction.commandName);
+    const { commandName } = interaction;
 
-    if (!command) return;
-
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+    if (commandName === 'ping') {
+        await interaction.reply('penis');
     }
+
+    console.log(interaction);
+});
+
+// When Client connects, log it.
+client.once('ready', () => {
+    console.log(`${client.user.tag} is online.`);
 });
 
 // Finally, start the bot and login with the token.
