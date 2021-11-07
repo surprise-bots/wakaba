@@ -1,6 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { createConnection } = require('mysql');
 
+const mycnf = {
+    "host" : process.env.MYSQL_HOST,
+    "user" : process.env.MYSQL_USER,
+    "password" : process.env.MYSQL_PASS,
+    "database" : process.env.MYSQL_DB
+};
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('excuse')
