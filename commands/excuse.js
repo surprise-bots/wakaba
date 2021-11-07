@@ -25,10 +25,10 @@ module.exports = {
 
         // Run the query
         con.query("SELECT saying FROM bofh_sayings ORDER BY RAND() LIMIT 1", (err, row) => {
-            retres = row;
+            // Utilize the return
+            return interaction.reply(row);
         });
     
-        // Utilize the return
-        return interaction.reply(retres);
+        
     },
 };
