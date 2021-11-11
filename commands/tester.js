@@ -5,6 +5,10 @@ module.exports = {
 		.setName('test')
 		.setDescription('Testing Commands'),
 	async execute(interaction) {
-        return interaction.reply({ content: `Purely for testing stuff.` });
+        if (!args.length) {
+            return interaction.reply({ content: `You didn't provide an argument` });
+        } else {
+            return interaction.reply({ content: `You said: ${args}` });
+        }
 	},
 };
